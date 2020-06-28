@@ -3,7 +3,7 @@
     <img class="original-image" src="../../assets/crop.png" alt="图片">
     <img class="crop-original-image" src="../../assets/crop.png" alt="">
     <!-- 裁剪框 -->
-    <div id='crop-clip_view'>
+    <div id='crop-clip_view' v-drag>
       <div class='square left-up'></div>
       <div class="square up"></div>
       <div class="square right-up"></div>
@@ -17,7 +17,31 @@
 </template>
 
 <script>
+/* eslint-disable no-debugger */
 export default {
+  directives: {
+    drag: function(el) {
+      let dragEl = el
+      dragEl.onmousedown = e => {
+        let relativeX = e.clientX - dragEl.offsetLeft
+        let relativeY = e.clientY - dragEl.offsetTop
+        console.log('clientX:', e.clientX)
+        console.log('clientY:', e.clientY)
+        console.log('offsetLeft', dragEl.offsetLeft)
+        console.log('offsetTop', dragEl.offsetTop)
+        document.onmousemove = e => {
+          let left = e.clientX - relativeX
+          let top = e.clientY - relativeY
+          dragEl.style.left = left + 'px'
+          dragEl.style.top = top + 'px'
+        }
+        document.onmouseup = () => {
+          document.onmousemove = null
+          document.onmouseup = null
+        }
+      }
+    },
+  },
   data () {
     return {
 
@@ -54,6 +78,7 @@ export default {
       border: 1px solid white;
       cursor: move;
       position: absolute;
+      top: 10px;
       .square {
         width: 8px;
         height: 8px;
