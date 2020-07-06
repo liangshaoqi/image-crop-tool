@@ -18,12 +18,19 @@
     <div class="preview-view">
       <canvas id='clip_anvas' width="600" height="300">您的浏览器不支持canvas标签</canvas>
     </div>
+    <div class="download">
+      <button @click="getImageFile">获取图片文件对象</button>
+    </div>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
+import { base64ToFile } from '../../utils/utils'
 export default {
+  props: {
+    
+  },
   directives: {
     drag: function (el, params, vnode) {
       let clipRangeData = vnode.context.clipRangeData
@@ -217,7 +224,7 @@ export default {
   },
   data() {
     return {
-
+      src: ''
     }
   },
   methods: {
@@ -228,6 +235,12 @@ export default {
       let canvas = document.getElementById('clip_anvas')
       let ctx = canvas.getContext('2d')
       ctx.clearRect(0, 0, 600, 300)
+    },
+    getImageFile() {
+      let canvas = document.getElementById('clip_anvas')
+      let base64 = canvas.toDataURL('image/png')
+      let imageFile = base64ToFile(base64, 'image')
+      console.log(imageFile)
     },
     createPreview(data) {
       let canvas = document.getElementById('clip_anvas')
@@ -243,6 +256,7 @@ export default {
       } else {
         ctx.drawImage(image, 0, 0, 200 * ratioX, 200 * ratioY, 0, 0, 200, 200)
       }
+      // this.getImageFile()
     },
     getPositionLocation(node) {
       let left = node.offsetLeft
@@ -304,6 +318,11 @@ export default {
   width: 600px;
   height: 600px;
   background: #ccc;
+  .download {
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+  }
   .original-image {
     // opacity: 0.5;
     width: 600px;
