@@ -1,21 +1,20 @@
 <template>
   <div id="app">
-    <TestCom/>
+    <CropContainer/>
   </div>
 </template>
 
 <script>
-import TestCom from './views'
-
+import CropContainer from './views/crop-container'
 export default {
   name: 'App',
   components: {
-    TestCom
+    CropContainer
   }
 }
 </script>
 
-<style>
+<style lang='scss'>
 body {
   margin: 0;
 }
@@ -23,6 +22,6 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
+  height: 100vh;
 }
 </style>
