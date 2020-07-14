@@ -18,10 +18,26 @@ import MainCropView from '../components/crop-view/crop-view'
 import Preview from '../components/preview/preview'
 import Toolbar from '../components/toolbar/toolbar'
 export default {
+  props: {
+    cropViewWidth: {
+      type: Number,
+      default: 770,
+    },
+    cropViewHeight: {
+      type: Number,
+      default: 520
+    },
+  },
   components: {
     MainCropView,
     Preview,
     Toolbar
+  },
+  provide() {
+    return {
+      width: this.cropViewWidth,
+      height: this.cropViewHeight
+    }
   },
   data () {
     return {

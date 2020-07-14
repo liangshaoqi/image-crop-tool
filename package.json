@@ -9,6 +9,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "core-js": "^3.6.5",
     "node-sass": "^4.14.1",
     "sass-loader": "^8.0.2",
