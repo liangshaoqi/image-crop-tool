@@ -25,7 +25,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+// /* eslint-disable */
 import { base64ToFile } from '../../utils/utils'
 export default {
   props: {
@@ -33,7 +33,7 @@ export default {
   },
   directives: {
     drag: function (el, params, vnode) {
-      let clipRangeData = vnode.context.clipRangeData
+      let clipRangeData = vnode.context.clipRangeDataclipRangeData
       let createPreview = vnode.context.createPreview
       let dragEl = el
       dragEl.onmousedown = e => {

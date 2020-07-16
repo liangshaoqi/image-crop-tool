@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <CropContainer/>
+    <CropContainer :width='100' :height='200'/>
   </div>
 </template>
 

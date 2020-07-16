@@ -1,5 +1,5 @@
 <template>
-  <div id="crop_frame_view" v-drag class="crop-frame-view" v-if="originalImageBase64 != ''">
+  <div :style='getCropFrameStyle' id="crop_frame_view" v-drag class="crop-frame-view" v-if="originalImageBase64 != ''">
     <div class="square left-up" v-scale="'left-up'"></div>
     <div class="square up" v-scale="'up'"></div>
     <div class="square right-up" v-scale="'right-up'"></div>
@@ -13,6 +13,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { createPreview, clearImage } from '@/utils/utils'
 export default {
   data() {
     return {
@@ -21,25 +22,38 @@ export default {
   computed: {
     ...mapState({
       originalImageBase64: 'originalImageBase64'
-    })
+    }),
+    getCropFrameStyle: function() {
+      let style = ''
+      let width = 0
+      let height = 0
+      if (this.ratio > 1) { // 定宽
+        width = this.previewUtinPx
+        height = this.ratio * this.previewUtinPx
+      } else { // 定高
+        width = this.ratio * this.previewUtinPx
+        height = this.previewUtinPx
+      }
+      style += 'width: ' + width + 'px;'
+      style += 'height: ' + height + 'px;'
+      return style
+    },
   },
   directives: {
     // 拖拽指令
-    drag: function(el, params, vnode) {
-      let clipRangeData = vnode.context.clipRangeData
-      let createPreview = vnode.context.createPreview
+    drag: function(el) {
       let dragEl = el
       dragEl.onmousedown = e => {
+        e.stopPropagation()
         let relativeX = e.clientX - dragEl.offsetLeft
         let relativeY = e.clientY - dragEl.offsetTop
         let clipEl = document.getElementById('crop_frame_view') // 裁剪框
         let limitEl = document.getElementById('crop_opreate_view') // 限制框
         document.onmousemove = e => {
+          e.stopPropagation()
           let left = e.clientX - relativeX
           let top = e.clientY - relativeY
           // 外层信息
-          let limitLeft = limitEl.offsetLeft
-          let limitTop = limitEl.offsetTop
           let limitWidth = limitEl.offsetWidth
           let limitHeight = limitEl.offsetHeight
           // 裁剪框信息
@@ -70,7 +84,7 @@ export default {
             height: clipHeight
           }
           // 生成canvas裁剪区域
-          // createPreview(positionData)
+          createPreview(positionData)
         }
         document.onmouseup = () => {
           document.onmousemove = null
@@ -79,34 +93,13 @@ export default {
       }
     },
     // 缩放指令
-    scale: function(el, params, vNode) {
+    scale: function(el, params) {
       let scaleEl = el
       let direction = params.value
-      let { createPreview, clearImage } = vNode.context
-      // 获取元素相遇屏幕左边的位置
-      const getPositionLocation = (node) => {
-        let left = node.offsetLeft
-        let top = node.offsetTop
-        let parent = node.offsetParent
-        let width = parent.offsetWidth
-        let height = parent.offsetHeight
-        if (left < parent.offsetLeft) {
-          left = parent.offsetLeft
-        }
-        if (top < parent.offsetTop) {
-          top = parent.offsetTop
-        }
-        return {
-          left,
-          top,
-          width,
-          height
-        }
-      }
       scaleEl.onmousedown = e => {
         e.stopPropagation()
         let boxEl = document.getElementById('crop_frame_view') // 裁剪框
-        let limitEl = document.getElementById('crop_opreate_view') // 限制框
+        let limitEl = document.getElementById('original-image') // 限制框
         // 裁剪框信息
         let offsetLeft = boxEl.offsetLeft
         let offsetTop = boxEl.offsetTop
@@ -170,6 +163,7 @@ export default {
           boxEl.style.height = height + 'px'
         }
         document.onmousemove = e => {
+          e.stopPropagation()
           switch (direction) {
             case 'left':
               moveLeft(e)
@@ -202,13 +196,13 @@ export default {
             default:
               break
           }
-          // clearImage()
-          // createPreview({
-          //   width: boxEl.offsetWidth,
-          //   height: boxEl.offsetHeight,
-          //   left: boxEl.offsetLeft,
-          //   top: boxEl.offsetTop
-          // })
+          clearImage()
+          createPreview({
+            width: boxEl.offsetWidth,
+            height: boxEl.offsetHeight,
+            left: boxEl.offsetLeft,
+            top: boxEl.offsetTop
+          })
         }
         document.onmouseup = () => {
           document.onmousemove = null
@@ -217,6 +211,7 @@ export default {
       }
     }
   },
+  inject: ['width', 'height', 'ratio', 'previewUtinPx'],
   methods: {
     /**
      * 裁剪框移动和缩小放大的区域限制
@@ -247,7 +242,7 @@ export default {
 </script>
 <style lang='scss'>
   .crop-frame-view {
-    width: 200px;
+    width: 300px;
     height: 200px;
     border: 1px solid #7d73d4;
     cursor: move;

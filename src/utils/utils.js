@@ -3,10 +3,10 @@
  * base64转为file文件对象
  * @export
  * @param {*} dataurl base64字符串
- * @param {string} [filename='upload'] 文件名
+ * @param {string} [filename='downloadImage'] 文件名
  * @returns File
  */
-export function base64ToFile (dataurl, filename = 'upload') {
+export function base64ToFile (dataurl, filename = 'downloadImage') {
   var arr = dataurl.split(',')
   let mime = arr[0].match(/:(.*?);/)[1]
   let bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
@@ -87,4 +87,96 @@ export function calculateRatio(containerWidth, containerHeight, imgWidth, imgHei
     width: imgWidth,
     height: imgHeight
   }
+}
+/**
+ * 生成预览区域
+ *
+ * @export
+ * @param {Object} data
+ * @param {String} canvasId
+ * @param {String} imageId
+ */
+export function createPreview(data, canvasId, imageId) {
+  let canvas = document.getElementById('preview_square')
+  let canvasWidth = canvas.width
+  let canvasheight = canvas.height
+  let ctx = canvas.getContext('2d')
+  let image = document.getElementById('original-image')
+
+  // 图片原始信息
+  let naturalWidth = image.naturalWidth
+  let naturalHeight = image.naturalHeight
+  let ratioX = naturalWidth / image.width
+  let ratioY = naturalHeight / image.height
+  if (data) {
+    ctx.drawImage(image, data.left * ratioX, data.top * ratioY, data.width * ratioX, data.height * ratioY, 0, 0, canvasWidth, canvasheight)
+  } else {
+    ctx.drawImage(image, 0, 0, 210 * ratioX, 140 * ratioY, 0, 0, canvasWidth, canvasheight)
+  }
+  // console.log(this)
+}
+/**
+* 裁剪框移动和缩小放大的区域限制
+* @params { Object } clipNode 裁剪框节点对象
+* @params { Object } limitNode 限制范围的节点对象
+* @returns { Object } 范围定位
+**/
+export function clipRangeData(clipNode, limitNode) {
+ // 限制裁剪框移动的节点信息
+ let limitNodeWidth = limitNode.offsetWidth
+ let limitNodeHeight = limitNode.offsetHeight
+ let limitNodeLeft = limitNode.offsetLeft
+ let limitNodeTop = limitNode.offsetTop
+ // 裁剪框节点信息
+ let clipNodeWidth = clipNode.offsetWidth
+ let clipNodeHeight = clipNode.offsetHeight
+ let clipNodeLeft = clipNode.offsetLeft
+ let clipNodeTop = clipNode.offsetTop
+ // 最终返回的范围
+ let range = {}
+ // 移动过程区域
+ if (clipNodeLeft <= 0) {
+   range.left = 0
+ } else {
+   range.left = clipNodeLeft
+ }
+ if (clipNodeTop < 0) {
+   range.top = 0
+ } else {
+   range.top = clipNodeTop
+ }
+ return range
+}
+export function clearImage(id) {
+  let canvas = document.getElementById('preview_square')
+  
+  let ctx = canvas.getContext('2d')
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+}
+/**
+ * 小数转分数,小数点两位
+ *
+ * @export
+ * @param {*} decimals
+ * @returns {Array} 数组第一项代表分母,第二项代表分子
+ */
+export function decimalsToFractional(decimals){
+  const formatDecimals = decimals.toFixed(2)
+  let denominator = 100 //初始化分母
+  let numerator  = formatDecimals * 100 //初始化分子
+  let bigger = 0
+  function  recursion (){
+      bigger = denominator > numerator ? denominator : numerator
+      for(let i = bigger; i > 1; i--){
+          if(
+              Number.isInteger(numerator/i)
+              && Number.isInteger(denominator/i)){
+              numerator=numerator/i
+              denominator=denominator/i
+              recursion()
+          }
+      }
+  }
+  recursion()
+  return [numerator, denominator]
 }

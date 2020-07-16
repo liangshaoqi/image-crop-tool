@@ -4,15 +4,16 @@
       <!-- 裁剪实际操作区域 -->
       <div :style="originalImageStyle" class="crop-opreate-view" id='crop_opreate_view'>
         <img
+          id="original-image"
           class="original-image"
           :style="originalImageStyle"
           v-show="originalImageBase64 !== ''"
           :src="originalImageBase64"
           alt="图片转化失败,请刷新重试"
+          @load='imageLoad($event)'
         />
         <cropFrame></cropFrame>
       </div>
-      
     </div>
   </div>
 </template>
@@ -20,7 +21,7 @@
 <script>
 import cropFrame from '@/components/crop-frame/crop-frame'
 import { mapState } from 'vuex'
-import { calculateRatio } from '@/utils/utils'
+import { calculateRatio, createPreview } from '@/utils/utils'
 export default {
   components: {
     cropFrame
@@ -37,7 +38,7 @@ export default {
       cropImageSrc: ''
     }
   },
-  inject: ['width', 'height'],
+  inject: ['cropViewWidth', 'cropViewHeight'],
   computed: {
     ...mapState([
       'originalImageBase64',
@@ -45,8 +46,8 @@ export default {
     ]),
     getStyle: function () {
       let style = ''
-      style += 'width: ' + this.width + 'px;'
-      style += 'height: ' + this.height + 'px;'
+      style += 'width: ' + this.cropViewWidth + 'px;'
+      style += 'height: ' + this.cropViewHeight + 'px;'
       return style
     },
     // 裁剪原图的style
@@ -54,13 +55,17 @@ export default {
       let style = ''
       style += 'transform: scale(' + this.cropImageAttr.scale + ');'
       // 根据图片和容器的大小来缩放图片
-      let { width, height } = calculateRatio(this.width, this.height, this.cropImageAttr.width, this.cropImageAttr.height)
+      let { width, height } = calculateRatio(this.cropViewWidth, this.cropViewHeight, this.cropImageAttr.width, this.cropImageAttr.height)
       style += 'width: ' + width + 'px;'
       style += 'height: ' + height + 'px;'
       return style
     }
   },
-  methods: {}
+  methods: {
+    imageLoad() {
+      createPreview()
+    },
+  }
 }
 </script>
 <style lang='scss'>

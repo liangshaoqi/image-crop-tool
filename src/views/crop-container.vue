@@ -27,6 +27,18 @@ export default {
       type: Number,
       default: 520
     },
+    width: { // 生成图片的宽
+      type: Number,
+      default: 210
+    },
+    height: { // 生成图片的高
+      type: Number,
+      default: 140
+    },
+    previewUtinPx: { // 预览时的单位展示像素,计算为width = width / height * previewUtinPx, height = previewUtinPx
+      type: Number,
+      default: 200
+    }
   },
   components: {
     MainCropView,
@@ -35,8 +47,12 @@ export default {
   },
   provide() {
     return {
-      width: this.cropViewWidth,
-      height: this.cropViewHeight
+      cropViewWidth: this.cropViewWidth,
+      cropViewHeight: this.cropViewHeight,
+      width: this.width,
+      height: this.height,
+      ratio: this.width / this.height,
+      previewUtinPx: this.previewUtinPx
     }
   },
   data () {
@@ -54,9 +70,8 @@ export default {
     height: 100%;
     background: Gainsboro;
     .crop-operate-view {
-      width: 1100px;
-      height: 600px;
-      padding: 40px 0 0 50px;
+      // width: 1100px;
+      padding: 40px 40px 40px 50px;
       background: #fff;
       border-radius: 5px;
       .view-area {
