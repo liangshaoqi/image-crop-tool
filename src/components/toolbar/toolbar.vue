@@ -10,7 +10,7 @@
       <span class="toolbar-item iconfont iconshangchuan" @click="upload" title="上传图片"></span>
       <span class="toolbar-item iconfont iconbaocun" title="保存" @click="save"></span>
       <span class="toolbar-item iconfont iconquxiao1" @click="clearAll" title="清空"></span>
-      <span class="toolbar-item iconfont iconwancheng" title="完成"></span>
+      <span class="toolbar-item iconfont iconwancheng" @click="complete" title="完成"></span>
     </div>
     <div>
       <input id="upload-input" type="file" style="display: none;">
@@ -41,6 +41,7 @@ export default {
     ]),
     // 放大缩小
     scale(type) {
+      alert('功能正在开发中...')
       // let scaleNumber = this.scaleNumber
       // let scale = 1
       // if (type == '-') {
@@ -121,6 +122,9 @@ export default {
     },
     clearAll() {
       this.clearAllImage()
+    },
+    complete() {
+      alert('功能正在开发中')
     }
   }
 }
