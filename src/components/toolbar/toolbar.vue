@@ -60,7 +60,6 @@ export default {
       input.setAttribute('type', 'file')
       input.setAttribute('style', 'display: none;')
       input.setAttribute('accept', 'image/gif,image/jpeg,image/jpg,image/png')
-      input.click()
       input.onchange = async () => {
         let uploadImage = input.files[0]
         if (uploadImage) {
@@ -75,6 +74,7 @@ export default {
           this.setOriginalImageBase64(result)
         }
       }
+      input.click()
     },
     // 下载裁剪图片
     save() {
@@ -113,11 +113,14 @@ export default {
       }
       // 绘制
       ctx.drawImage(image, data.left * ratioX, data.top * ratioY, data.width * ratioX, data.height * ratioY, 0, 0, this.width, this.height)
-
       let imageSrc = canvas.toDataURL('image/png')
       let saveLink = document.createElement('a')
+      saveLink.style.display = 'none'
+      saveLink.innerHTML = '下载'
+      saveLink.target = '_blank'
       saveLink.href = imageSrc
       saveLink.download = '裁剪.png'
+      // document.body.appendChild(saveLink).click()
       saveLink.click()
     },
     clearAll() {

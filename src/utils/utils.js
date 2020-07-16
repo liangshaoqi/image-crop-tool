@@ -102,7 +102,6 @@ export function createPreview(data, canvasId, imageId) {
   let canvasheight = canvas.height
   let ctx = canvas.getContext('2d')
   let image = document.getElementById('original-image')
-
   // 图片原始信息
   let naturalWidth = image.naturalWidth
   let naturalHeight = image.naturalHeight
@@ -111,9 +110,8 @@ export function createPreview(data, canvasId, imageId) {
   if (data) {
     ctx.drawImage(image, data.left * ratioX, data.top * ratioY, data.width * ratioX, data.height * ratioY, 0, 0, canvasWidth, canvasheight)
   } else {
-    ctx.drawImage(image, 0, 0, 210 * ratioX, 140 * ratioY, 0, 0, canvasWidth, canvasheight)
+    ctx.drawImage(image, 0, 0, canvasWidth * ratioX, canvasWidth * ratioY, 0, 0, canvasWidth, canvasheight)
   }
-  // console.log(this)
 }
 /**
 * 裁剪框移动和缩小放大的区域限制
