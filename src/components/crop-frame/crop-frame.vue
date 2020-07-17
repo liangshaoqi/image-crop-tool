@@ -1,5 +1,5 @@
 <template>
-  <div :style='getCropFrameStyle' id="crop_frame_view" v-drag class="crop-frame-view" v-if="originalImageBase64 != ''">
+  <div ref="crop_frame_view" :style='getCropFrameStyle' id="crop_frame_view" v-drag class="crop-frame-view" v-if="originalImageBase64 != ''">
     <div class="square left-up" v-scale="'left-up'"></div>
     <div class="square up" v-scale="'up'"></div>
     <div class="square right-up" v-scale="'right-up'"></div>

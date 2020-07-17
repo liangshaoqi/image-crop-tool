@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { fileToBase64, downloadUrl } from '@/utils/utils'
+import { fileToBase64, downloadUrl, resetCropPosition } from '@/utils/utils'
 import { mapState, mapMutations } from 'vuex'
 export default {
   data () {
@@ -61,10 +61,13 @@ export default {
       input.setAttribute('style', 'display: none;')
       input.setAttribute('accept', 'image/gif,image/jpeg,image/jpg,image/png')
       input.onchange = async () => {
+        // 重置裁剪框的位置
+        resetCropPosition('crop_frame_view')
         let uploadImage = input.files[0]
         if (uploadImage) {
           let reresolveObj = await fileToBase64(uploadImage)
           let { width, height, result } = reresolveObj
+          // console.log(width, height)
           // 设置原始宽高
           this.setCropImageAttr({
             width,

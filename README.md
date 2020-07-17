@@ -1,4 +1,4 @@
-# vue图片裁剪
+# vue图片裁剪工具
 
 ## Project setup
 ```

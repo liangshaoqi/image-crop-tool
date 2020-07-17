@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable no-unused-vars */
 /**
  * base64转为file文件对象
@@ -64,24 +65,28 @@ export function calculateRatio(containerWidth, containerHeight, imgWidth, imgHei
       imgWidth = containerHeight * imgRatio
     }
   }
-  if (imgRatio > containerRatio) {
-    // 图片宽高比例大于容器比例
-    if (imgRatio >= 1) {
-      setSize('width')
-    } else { // 以高为基准
-      setSize('height')
-    }
-  } else if (imgRatio < containerRatio) {
-    // 图片宽高比例小于容器比例
-    if (imgRatio < 1) {
-      setSize('height')
-    } else { // 以高为基准
-      setSize('width')
-    }
-  } else {
-    // 全屏占满
+  // 容器比例和图片比例相等
+  if (containerRatio === imgRatio) {
     imgWidth = containerWidth
     imgHeight = containerHeight
+  }
+  // 容器比例大于等于1
+  if (containerRatio >= 1) {
+    if (imgRatio >= containerRatio) {
+      // 以宽为基准
+      setSize('width')
+    } else {
+      setSize('height')
+    }
+  }
+  // 容器比例小于1
+  if (containerRatio < 1) {
+    if (imgRatio >= containerRatio) {
+      setSize('width')
+    }
+    if (imgRatio < containerRatio) {
+      setSize('height')
+    }
   }
   return {
     width: imgWidth,
@@ -205,4 +210,16 @@ export function downloadUrl(canvas, name) {
     }
     document.body.removeChild(link)
   }
+}
+/**
+ * 重置裁剪框到限制容器的(0, 0)位置
+ *
+ * @export
+ * @param {String} id 裁剪框id
+ */
+export function resetCropPosition(id) {
+  let crop = document.getElementById(id)
+  if (crop === null) return
+  crop.style.top = '0px'
+  crop.style.left = '0px'
 }

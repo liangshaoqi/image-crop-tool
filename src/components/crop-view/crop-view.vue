@@ -2,7 +2,7 @@
   <div class="crop-main-view" :style="getStyle">
     <div class="original-image-view" :style="getStyle">
       <!-- 裁剪实际操作区域 -->
-      <div :style="originalImageStyle" class="crop-opreate-view" id='crop_opreate_view'>
+      <div v-if="originalImageBase64 !== ''" :style="originalImageStyle" class="crop-opreate-view" id='crop_opreate_view'>
         <img
           id="original-image"
           class="original-image"
@@ -64,7 +64,7 @@ export default {
   methods: {
     imageLoad() {
       createPreview()
-    },
+    }
   }
 }
 </script>

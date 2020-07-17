@@ -1,10 +1,10 @@
 <template>
   <div class="preview-view">
     <p>预览:</p>
-    <div class="no-preview">
+    <div class="no-preview" v-show="originalImageBase64 === ''">
       无预览
     </div>
-    <div class="preview" v-show="originalImageBase64 != ''">
+    <div class="preview" v-show="originalImageBase64 !== ''">
       <div class="square" :style="getStyle">
         <canvas v-if="ratio > 1" :width="previewUtinPx" :height="ratio * previewUtinPx" id='preview_square'>浏览器不支持canvas</canvas>
         <canvas v-if="ratio <= 1" :width="ratio * previewUtinPx" :height="previewUtinPx" id='preview_square'>浏览器不支持canvas</canvas>
@@ -31,7 +31,6 @@ export default {
       "originalImageBase64": 'originalImageBase64'
     }),
     getStyle: function() {
-      console.log(this.originalImageBase64 == '')
       let style = ''
       let width = 0
       let height = 0
