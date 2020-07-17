@@ -178,3 +178,31 @@ export function decimalsToFractional(decimals){
   recursion()
   return [numerator, denominator]
 }
+/**
+ * 将canvas转为图片并下载
+ *
+ * @export
+ * @param { Object } canvas 
+ * @param {string} name 下载文件名称
+ */
+export function downloadUrl(canvas, name) {
+  // 网上说是ie10+因为base64太长,所以转成blob
+  if (navigator.msSaveBlob) { // IE10 +,edge
+    let blob = canvas.msToBlob()
+    navigator.msSaveBlob(blob, name)
+  } else {
+    let src = canvas.toDataURL('image/png')
+    let link = document.createElement('a')
+    link.download = name
+    link.href = src
+    document.body.appendChild(link)
+    if (link.click) {
+      link.click()
+    } else {
+      let event = document.createEvent('MouseEvents')
+      event.initMouseEvent('click', true, true, window)
+      link.dispatchEvent(event)
+    }
+    document.body.removeChild(link)
+  }
+}

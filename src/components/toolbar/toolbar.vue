@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { fileToBase64 } from '@/utils/utils'
+import { fileToBase64, downloadUrl } from '@/utils/utils'
 import { mapState, mapMutations } from 'vuex'
 export default {
   data () {
@@ -98,30 +98,24 @@ export default {
       let clipEl = document.getElementById('crop_frame_view') // 裁剪框
       let limitEl = document.getElementById('crop_opreate_view') // 限制框
       // 限制框信息
-      let limitWidth = limitEl.offsetWidth
-      let limitHeight = limitEl.offsetHeight
+      let limitLeft = limitEl.offsetLeft
+      let limitTop = limitEl.offsetTop
       // 裁剪框信息
+      let clipLeft = clipEl.offsetLeft
+      let clipTop = clipEl.offsetTop
       let clipWidth = clipEl.offsetWidth
       let clipHeight = clipEl.offsetHeight
-      let left = limitWidth - clipWidth
-      let top = limitHeight - clipHeight
+      let left = clipLeft - limitLeft
+      let top = clipTop - limitTop
       let data = {
-        left, // 相对限制区域的坐标点left
+        left, // 裁剪框相对限制区域的坐标点left
         top,
-        width: clipWidth,
+        width: clipWidth, // 裁剪框的宽
         height: clipHeight
       }
       // 绘制
       ctx.drawImage(image, data.left * ratioX, data.top * ratioY, data.width * ratioX, data.height * ratioY, 0, 0, this.width, this.height)
-      let imageSrc = canvas.toDataURL('image/png')
-      let saveLink = document.createElement('a')
-      saveLink.style.display = 'none'
-      saveLink.innerHTML = '下载'
-      saveLink.target = '_blank'
-      saveLink.href = imageSrc
-      saveLink.download = '裁剪.png'
-      // document.body.appendChild(saveLink).click()
-      saveLink.click()
+      downloadUrl(canvas, '下载.png')
     },
     clearAll() {
       this.clearAllImage()
