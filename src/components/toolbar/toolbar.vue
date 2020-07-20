@@ -99,17 +99,13 @@ export default {
       let ratioY = naturalHeight / image.height
 
       let clipEl = document.getElementById('crop_frame_view') // 裁剪框
-      let limitEl = document.getElementById('crop_opreate_view') // 限制框
-      // 限制框信息
-      let limitLeft = limitEl.offsetLeft
-      let limitTop = limitEl.offsetTop
       // 裁剪框信息
       let clipLeft = clipEl.offsetLeft
-      let clipTop = clipEl.offsetTop
+      let clipTop = clipEl.offsetTop // 裁剪框相对于限制框的顶部距离top
       let clipWidth = clipEl.offsetWidth
       let clipHeight = clipEl.offsetHeight
-      let left = clipLeft - limitLeft
-      let top = clipTop - limitTop
+      let left = clipLeft
+      let top = clipTop
       let data = {
         left, // 裁剪框相对限制区域的坐标点left
         top,

@@ -196,7 +196,7 @@ export function downloadUrl(canvas, name) {
     let blob = canvas.msToBlob()
     navigator.msSaveBlob(blob, name)
   } else {
-    let src = canvas.toDataURL('image/png')
+    let src = canvas.toDataURL('image/png', 1)
     let link = document.createElement('a')
     link.download = name
     link.href = src
