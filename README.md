@@ -1,7 +1,7 @@
 # 文档
 
 ## 项目截图
-![示例](src/assets/examplate.png)
+![示例](src/assets/example.png)
 
 ### Compiles and hot-reloads for development
 ```
