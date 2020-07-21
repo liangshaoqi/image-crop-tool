@@ -30,7 +30,7 @@ npm run build
 | cropViewHeight | Number | 520 | 裁剪操作区域的高,单位(px) |
 | previewUtinPx | Number | 200 | 预览视图的单位展示像素,该视图的最终宽width=width(裁剪后生成图片的宽) / height(裁剪后生成图片的高) * previewUtinPx,高同理 |
 
-## 方法(methods),正在完善中,暂时不能使用
+## 方法(methods),正在完善中
 | 名称 | 参数 | 说明 |
 | -- |-- | -- |
 | save | 暂无 | 下载裁剪过后的图片 |
