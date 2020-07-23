@@ -2,7 +2,7 @@
   <div class="crop-main-view" :style="getStyle">
     <div class="original-image-view" :style="getStyle">
       <!-- 裁剪实际操作区域 -->
-      <div v-if="originalImageBase64 !== ''" :style="originalImageStyle" class="crop-opreate-view" id='crop_opreate_view'>
+      <div v-if="originalImageBase64 !== ''" :style="originalImageContainerStyle" class="crop-opreate-view" id='crop_opreate_view'>
         <img
           id="original-image"
           class="original-image"
@@ -50,6 +50,14 @@ export default {
       style += 'height: ' + this.cropViewHeight + 'px;'
       return style
     },
+    // 图片容器
+    originalImageContainerStyle: function() {
+      let style = ''
+      let { width, height } = calculateRatio(this.cropViewWidth, this.cropViewHeight, this.cropImageAttr.width, this.cropImageAttr.height)
+      style += 'width: ' + width + 'px;'
+      style += 'height: ' + height + 'px;'
+      return style
+    },
     // 裁剪原图的style
     originalImageStyle: function () {
       let style = ''
@@ -63,7 +71,7 @@ export default {
   },
   methods: {
     imageLoad() {
-      createPreview()
+      createPreview.call(this)
     }
   }
 }

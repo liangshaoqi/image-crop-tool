@@ -102,6 +102,8 @@ export function calculateRatio(containerWidth, containerHeight, imgWidth, imgHei
  * @param {String} imageId
  */
 export function createPreview(data, canvasId, imageId) {
+  // console.log(this.$store.state)
+  let { scale } = this.$store.state.cropImageAttr
   let canvas = document.getElementById('preview_square')
   let canvasWidth = canvas.width
   let canvasheight = canvas.height

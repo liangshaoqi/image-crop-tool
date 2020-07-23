@@ -41,7 +41,8 @@ export default {
   },
   directives: {
     // 拖拽指令
-    drag: function(el) {
+    drag: function(el, binding, vnode) {
+      let _this = vnode.context
       let dragEl = el
       dragEl.onmousedown = e => {
         e.stopPropagation()
@@ -84,7 +85,7 @@ export default {
             height: clipHeight
           }
           // 生成canvas裁剪区域
-          createPreview(positionData)
+          createPreview.call(_this, positionData)
         }
         document.onmouseup = () => {
           document.onmousemove = null
@@ -93,7 +94,8 @@ export default {
       }
     },
     // 缩放指令
-    scale: function(el, params) {
+    scale: function(el, params, vnode) {
+      let _this = vnode.context
       let scaleEl = el
       let direction = params.value
       scaleEl.onmousedown = e => {
@@ -197,7 +199,7 @@ export default {
               break
           }
           clearImage()
-          createPreview({
+          createPreview.call(_this, {
             width: boxEl.offsetWidth,
             height: boxEl.offsetHeight,
             left: boxEl.offsetLeft,

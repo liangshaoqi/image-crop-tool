@@ -1,12 +1,12 @@
 <template>
   <div class="toolbar-view">
     <div class="toolbar">
-      <div class="scale toolbar-item">
+      <!-- <div class="scale toolbar-item">
         <span @click="scale('-')" class='iconfont iconGroup-1' title="缩小"></span>
         <span class="scale-number">{{scaleNumber}}</span>
         <span class="scale-percent">%</span>
         <span @click="scale('+')" class='iconfont iconGroup-' title="放大"></span>
-      </div>
+      </div> -->
       <span class="toolbar-item iconfont iconshangchuan" @click="upload" title="上传图片"></span>
       <span class="toolbar-item iconfont iconbaocun" title="保存" @click="save"></span>
       <span class="toolbar-item iconfont iconquxiao1" @click="clearAll" title="清空"></span>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { fileToBase64, downloadUrl, resetCropPosition } from '@/utils/utils'
+import { fileToBase64, downloadUrl, resetCropPosition, createPreview } from '@/utils/utils'
 import { mapState, mapMutations } from 'vuex'
 export default {
   data () {
@@ -41,19 +41,30 @@ export default {
     ]),
     // 放大缩小
     scale(type) {
-      alert('功能正在开发中...')
-      // let scaleNumber = this.scaleNumber
-      // let scale = 1
-      // if (type == '-') {
-      //   if (scaleNumber <= 10) return
-      //   this.scaleNumber -= 10
-      // } else {
-      //   this.scaleNumber += 10
-      // }
-      // scale = this.scaleNumber / 100
-      // this.setCropImageAttr({
-      //   scale: scale
-      // })
+      // alert('功能正在开发中...')
+      let scaleNumber = this.scaleNumber
+      let scale = 1
+      if (type == '-') {
+        if (scaleNumber <= 10) return
+        this.scaleNumber -= 10
+      } else {
+        this.scaleNumber += 10
+      }
+      scale = this.scaleNumber / 100
+      this.setCropImageAttr({
+        scale: scale
+      })
+      // 获取裁剪框信息
+      let boxEl = document.getElementById('crop_frame_view') // 裁剪框
+      // 重新绘制预览图
+      let data = {
+        width: boxEl.offsetWidth,
+        height: boxEl.offsetHeight,
+        left: boxEl.offsetLeft,
+        top: boxEl.offsetTop
+      }
+      console.log(data)
+      // createPreview.call(this, data)
     },
     upload() {
       let input = document.createElement('input')
