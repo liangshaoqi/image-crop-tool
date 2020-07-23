@@ -29,13 +29,15 @@ npm run build
 | cropViewWidth | Number | 770 | 裁剪操作区域的宽,单位(px) |
 | cropViewHeight | Number | 520 | 裁剪操作区域的高,单位(px) |
 | previewUtinPx | Number | 200 | 预览视图的单位展示像素,该视图的最终宽width=width(裁剪后生成图片的宽) / height(裁剪后生成图片的高) * previewUtinPx,高同理 |
+| imageType | String | png | 裁剪生成的图片类型,可选项为:png/jpg |
 
-## 方法(methods),正在完善中
+## 方法(methods)
 | 名称 | 参数 | 说明 |
 | -- |-- | -- |
-| save | 暂无 | 下载裁剪过后的图片 |
-| upload | 暂无 | 上传本地图片到裁剪区域 |
+| downloadFile | 暂无 | 下载裁剪过后的图片 |
+| upload | callback | 上传本地图片到裁剪区域,上传后执行callback方法 |
 | clearAll | 暂无 | 清除正在裁剪的图片和预览区域 |
 | complete | 暂无 | 完成功能 |
-| scale | 暂无 | 放大和缩小正在裁剪的图片 |
+| getImageFile | fileName, type | 获取裁剪后的图片对象(File类型),文件名默认为'image', 生成的图片类型type,默认为file,可选(file/base64) |
+
 

@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { fileToBase64, downloadUrl, resetCropPosition, createPreview } from '@/utils/utils'
+import { fileToBase64, base64ToFile, downloadUrl, resetCropPosition } from '@/utils/utils'
 import { mapState, mapMutations } from 'vuex'
 export default {
   data () {
@@ -64,7 +64,6 @@ export default {
         top: boxEl.offsetTop
       }
       console.log(data)
-      // createPreview.call(this, data)
     },
     upload() {
       let input = document.createElement('input')
@@ -91,7 +90,7 @@ export default {
       input.click()
     },
     // 下载裁剪图片
-    save() {
+    save(params) {
       // 
       if (this.originalImageBase64 ==='') {
         alert('还未上传图片')
@@ -125,7 +124,19 @@ export default {
       }
       // 绘制
       ctx.drawImage(image, data.left * ratioX, data.top * ratioY, data.width * ratioX, data.height * ratioY, 0, 0, this.width, this.height)
-      downloadUrl(canvas, '下载.png')
+      if (params) {
+        if(params.getFile) {
+          let base64 = canvas.toDataURL('image/jpeg', 1.0)
+          if (params.type === 'file') {
+            return base64ToFile(base64)
+          } else {
+            return base64
+          }
+          
+        }
+      } else {
+        downloadUrl(canvas, '下载.png')
+      }
     },
     clearAll() {
       this.clearAllImage()
