@@ -4,7 +4,7 @@
 ![示例](src/assets/example.png)
 
 ## 预览
-![预览](https://github.com/liangshaoqi/image-crop-tool/tree/master/dist/index.html)
+![预览](dist/index.html)
 
 ## 浏览器兼容性
 ie 11,edge,其他主流浏览器
