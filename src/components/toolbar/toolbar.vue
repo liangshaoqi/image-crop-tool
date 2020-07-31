@@ -124,7 +124,7 @@ export default {
       }
       // 绘制
       ctx.drawImage(image, data.left * ratioX, data.top * ratioY, data.width * ratioX, data.height * ratioY, 0, 0, this.width, this.height)
-      if (params) {
+      if (params.type !== 'click') {
         if(params.getFile) {
           let base64 = canvas.toDataURL('image/jpeg', 1.0)
           if (params.type === 'file') {
