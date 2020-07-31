@@ -35,11 +35,11 @@ npm run build
 | imageType | String | png | 裁剪生成的图片类型,可选项为:png/jpg |
 
 ## 方法(methods)
-| 名称 | 参数 | 说明 |
-| -- |-- | -- |
-| downloadFile | 暂无 | 下载裁剪过后的图片 |
-| upload | callback | 上传本地图片到裁剪区域,上传后执行callback方法 |
-| clear | 暂无 | 清除正在裁剪的图片和预览区域 |
-| complete | fileName, type | 返回裁剪后的图片对象(File类型),文件名默认为'image', 生成的图片类型type,默认为file,可选(file/base64) |
+| 名称 | 参数 | 默认值 | 说明 |
+| -- |-- | -- | -- |
+| downloadFile | 暂无 |  |  下载裁剪过后的图片 |
+| upload | 暂无 |  | 上传本地图片到裁剪区域 |
+| clear | 暂无 |  | 清除正在裁剪的图片和预览区域 |
+| complete | fileName, type | fileName='image', type = 'file' | 返回裁剪后的图片对象(File类型),文件名默认为'image', 生成的图片类型type,默认为file,可选(file/base64) |
 
 
