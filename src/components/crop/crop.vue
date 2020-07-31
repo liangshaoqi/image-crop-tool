@@ -2,12 +2,12 @@
   <div class="crop-operate-view">
     <div class="view-area">
       <!-- 裁剪操作视图 -->
-      <MainCropView></MainCropView>
+      <MainCropView ref="crop_view"></MainCropView>
       <!-- 预览 -->
-      <Preview></Preview>
+      <Preview ref="preview"></Preview>
     </div>
     <!-- 工具栏 -->
-    <Toolbar ref="toolbar"></Toolbar>
+    <Toolbar ref="toolbar" @complete='complete' @clear='clear' @downloadFile='downloadFile' @upload='upload'></Toolbar>
   </div>
 </template>
 
@@ -65,24 +65,25 @@ export default {
     // 对外暴露的API方法
     // 下载裁剪后的文件
     downloadFile() {
-      this.$refs.toolbar.save()
+      this.$refs.crop_view.save()
     },
+    // 上传
     upload() {
-      this.$refs.toolbar.upload()
+      this.$refs.crop_view.upload()
     },
+    // 清空
     clear() {
-      this.$refs.toolbar.clearAll()
+      this.$refs.crop_view.clear()
     },
-    complete() {
-      this.$refs.toolbar.complete()
-    },
-    getImageFile(name = 'image', type = 'file') {
+    // 完成
+    complete(name = 'image', type = 'file') {
       let params = {
         getFile: true,
         name,
         type
       }
-      let file = this.$refs.toolbar.save(params)
+      let file = this.$refs.crop_view.save(params)
+      console.log(file)
       return file
     }
   }

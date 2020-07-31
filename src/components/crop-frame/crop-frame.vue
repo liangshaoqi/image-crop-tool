@@ -243,10 +243,13 @@ export default {
 }
 </script>
 <style lang='scss'>
+  $squareBorderColor: #000;
+  $squareBgColor: #FFF;
+  $offsetPx: -5px;
   .crop-frame-view {
     width: 300px;
     height: 200px;
-    border: 1px solid #7d73d4;
+    border: 1px solid $squareBorderColor;
     cursor: move;
     position: absolute;
     z-index: 99;
@@ -256,46 +259,47 @@ export default {
       width: 8px;
       height: 8px;
       position: absolute;
-      background: #7d73d4;
+      background: $squareBgColor;
+      border: 1px solid $squareBorderColor;
     }
     .left-up {
-      top: -4px;
-      left: -4px;
+      top: $offsetPx;
+      left: $offsetPx;
       cursor: nw-resize;
     }
     .up {
-      top: -4px;
+      top: $offsetPx;
       left: 50%;
       cursor: n-resize;
     }
     .right-up {
-      top: -4px;
-      right: -4px;
+      top: $offsetPx;
+      right: $offsetPx;
       cursor: ne-resize;
     }
     .left {
       top: 50%;
-      left: -4px;
+      left: $offsetPx;
       cursor: w-resize;
     }
     .right {
       top: 50%;
-      right: -4px;
+      right: $offsetPx;
       cursor: e-resize;
     }
     .left-down {
-      left: -4px;
-      bottom: -4px;
+      left: $offsetPx;
+      bottom: $offsetPx;
       cursor: sw-resize;
     }
     .down {
       left: 50%;
-      bottom: -4px;
+      bottom: $offsetPx;
       cursor: s-resize;
     }
     .right-down {
-      right: -4px;
-      bottom: -4px;
+      right: $offsetPx;
+      bottom: $offsetPx;
       cursor: se-resize;
     }
   }

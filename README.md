@@ -39,8 +39,7 @@ npm run build
 | -- |-- | -- |
 | downloadFile | 暂无 | 下载裁剪过后的图片 |
 | upload | callback | 上传本地图片到裁剪区域,上传后执行callback方法 |
-| clearAll | 暂无 | 清除正在裁剪的图片和预览区域 |
-| complete | 暂无 | 完成功能 |
-| getImageFile | fileName, type | 获取裁剪后的图片对象(File类型),文件名默认为'image', 生成的图片类型type,默认为file,可选(file/base64) |
+| clear | 暂无 | 清除正在裁剪的图片和预览区域 |
+| complete | fileName, type | 返回裁剪后的图片对象(File类型),文件名默认为'image', 生成的图片类型type,默认为file,可选(file/base64) |
 
 
