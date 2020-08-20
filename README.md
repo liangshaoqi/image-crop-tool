@@ -1,7 +1,15 @@
 # 文档
 
 ## 项目截图
-![示例](src/assets/example.png)
+
+### 截图1
+![示例](src/assets/example1.png)
+
+### 截图2
+![示例](src/assets/example2.png)
+
+### 动图演示
+![示例](src/assets/example_gif.gif)
 
 ## 浏览器兼容性
 ie 11,edge,其他主流浏览器
