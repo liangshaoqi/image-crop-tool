@@ -11,13 +11,13 @@ target
 .factorypath
 package-lock.json
 node_modules
-# dist
-# /dist.*
+dist
+/dist.*
 www
 /www.*
 .DS_Store
 node_modules
-# /dist
+/dist
 
 # local env files
 .env.local

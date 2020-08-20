@@ -24,6 +24,10 @@ module.exports = {
             deleteOriginalAssets: false, // 是否删除源文件
           }),
         ],
+        externals: {
+          'vue': 'Vue',
+          'vuex': 'Vuex'
+        },
       };
     }
   },

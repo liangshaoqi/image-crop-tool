@@ -1,4 +1,5 @@
-import Vue from 'vue'
+// let isProduction = process.env.NODE_ENV === 'production' ? true : false
+// import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
 Vue.config.productionTip = false
