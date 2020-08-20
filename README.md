@@ -8,7 +8,7 @@
 ### 截图2
 ![示例](src/assets/example2.png)
 
-### 动图演示
+### 动图演示(LICEcap软件制作的动图)
 ![示例](src/assets/example_gif.gif)
 
 ## 浏览器兼容性
